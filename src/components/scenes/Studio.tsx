@@ -1,8 +1,10 @@
 import { forwardRef, useImperativeHandle, useRef } from 'react';
 import { Mesh } from 'three';
+import Bench from '../objects/Bench';
 import Chair from '../objects/Chair';
 import Desk from '../objects/Desk';
 import ObjectBase, { type ObjectBaseHandle } from '../objects/ObjectBase';
+import Trashcan from '../objects/Trashcan';
 import Table from '../objects/Table';
 
 export interface StudioHandle {
@@ -112,6 +114,8 @@ const Studio = forwardRef<StudioHandle, StudioProps>(function Studio({ showColli
             <Desk ref={deskRef} position={[-1.7, 0.55, -2.2]} showCollider={showCollider} />
             <Chair ref={chairRef} position={[-1.7, 0.45, -1.35]} showCollider={showCollider} />
             <Table ref={tableRef} position={[1.7, 0.4, -1.4]} showCollider={showCollider} />
+            <Bench position={[0.2, 0.3, 1.6]} showCollider={showCollider} />
+            <Trashcan position={[3.0, 0.45, 2.9]} showCollider={showCollider} />
 
             {/* Shelf */}
             <ObjectBase

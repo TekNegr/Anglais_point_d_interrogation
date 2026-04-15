@@ -33,6 +33,7 @@ interface ObjectBaseProps {
 	pointSize?: number;
 	showCollider?: boolean;
 	geometryNode?: ReactNode;
+	children?: ReactNode;
 }
 
 /**
@@ -51,6 +52,7 @@ const ObjectBase = forwardRef<ObjectBaseHandle, ObjectBaseProps>(function Object
 		pointSize = 0.03,
 		showCollider = false,
 		geometryNode,
+		children,
 	},
 	ref,
 ) {
@@ -138,22 +140,26 @@ const ObjectBase = forwardRef<ObjectBaseHandle, ObjectBaseProps>(function Object
 	);
 
 	return (
-		<mesh ref={meshRef} position={position} rotation={rotation} scale={scale}>
-			{geometryNode ?? <boxGeometry args={boxArgs} />}
-			<meshStandardMaterial
-				color={color}
-				wireframe={showCollider}
-				transparent
-				opacity={showCollider ? 0.25 : 0}
-				colorWrite={showCollider}
-				depthWrite={showCollider}
-			/>
+		<group position={position} rotation={rotation} scale={scale}>
+			<mesh ref={meshRef}>
+				{geometryNode ?? <boxGeometry args={boxArgs} />}
+				<meshStandardMaterial
+					color={color}
+					wireframe={showCollider}
+					transparent
+					opacity={showCollider ? 0.25 : 0}
+					colorWrite={showCollider}
+					depthWrite={showCollider}
+				/>
+			</mesh>
+
+			{children}
 
 			<points ref={pointsRef}>
 				<bufferGeometry />
 				<pointsMaterial color={pointColor} size={pointSize} sizeAttenuation depthWrite={false} />
 			</points>
-		</mesh>
+		</group>
 	);
 });
 
